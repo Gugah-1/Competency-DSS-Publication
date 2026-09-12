@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Competency DSS — PT Black Bear Resources Indonesia</title>
+<link rel="stylesheet" href="/app/static/styles.css?v=v22.10.5"/>
+</head>
+<body>
+<div id="login-screen" class="login-screen">
+  <div class="login-shell">
+    <div class="login-brand"><img src="/app/static/assets/bbri-logo.png" alt="BBRI"/><div><span>PT Black Bear Resources Indonesia</span><h1>Competency DSS</h1><p>Training & Competency Development · Authenticated LAN Access</p></div></div>
+    <form id="login-form" class="login-card">
+      <div class="detail-kicker">SECURE SIGN IN</div><h2>Masuk ke sistem</h2><p>Gunakan akun internal Supervisor TCD atau HRD.</p>
+      <label><span>Username</span><input id="login-username" autocomplete="username" required/></label>
+      <label><span>Password</span><input id="login-password" type="password" autocomplete="current-password" required/></label>
+      <button class="primary" id="login-button" type="submit">Sign In</button><div id="login-error" class="login-error hidden"></div>
+      <small>Session akan berakhir setelah periode tidak aktif. Password sementara wajib diganti saat login pertama.</small>
+    </form>
+  </div>
+</div>
+<div id="password-screen" class="login-screen hidden">
+  <form id="password-form" class="login-card password-card">
+    <div class="detail-kicker">FIRST LOGIN SECURITY</div><h2>Ganti password sementara</h2><p>Password baru minimal 10 karakter dan harus memiliki huruf besar, huruf kecil, angka, dan simbol.</p>
+    <label><span>Password saat ini</span><input id="current-password" type="password" required/></label>
+    <label><span>Password baru</span><input id="new-password" type="password" required/></label>
+    <label><span>Ulangi password baru</span><input id="confirm-password" type="password" required/></label>
+    <button class="primary" type="submit">Change Password</button><div id="password-error" class="login-error hidden"></div>
+  </form>
+</div>
+
+<aside class="sidebar">
+  <div class="brand">
+    <img src="/app/static/assets/bbri-logo.png" class="bbri-logo" alt="Black Bear Resources Indonesia"/>
+    <div class="brand-text"><strong>Competency DSS</strong><span>Data-Driven Decision Support</span></div>
+  </div>
+  <nav id="nav">
+    <button class="nav-item active" data-page="dashboard"><span>⌂</span>Dashboard</button>
+    <div class="nav-label">WORKFORCE</div>
+    <button class="nav-item" data-page="employee"><span>👥</span>Employee</button>
+    <button class="nav-item" data-page="training"><span>▣</span>Training</button>
+    <button class="nav-item" data-page="history"><span>↺</span>Training History</button>
+    <button class="nav-item" data-page="certification"><span>◇</span>Certification</button>
+    <button class="nav-item" data-page="competency"><span>◎</span>Competency</button>
+    <button class="nav-item" data-page="assessment"><span>◫</span>Assessment Queue</button>
+    <button class="nav-item" data-page="validation"><span>✓</span>Validation Queue</button>
+    <div class="nav-label">OPERATIONS</div>
+    <button class="nav-item" data-page="actions"><span>⚑</span>Action Center</button>
+    <button class="nav-item" data-page="ai"><span>✦</span>AI Assistant</button>
+    <button class="nav-item" data-page="analytics"><span>▥</span>Reports & Analytics</button>
+    <div class="nav-label">DATA</div>
+    <button class="nav-item" data-page="data"><span>▤</span>Data Management</button>
+    <button class="nav-item" data-page="system" id="system-nav"><span>⚙</span>System & Backup</button>
+  </nav>
+  <div class="sidebar-foot"><img src="/app/static/assets/bbri-logo.png" alt="BBRI"/><span>PT Black Bear Resources Indonesia</span></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><div class="eyebrow">Training & Competency Development</div><h1 id="page-title">Dashboard</h1></div><div class="topbar-search-wrap"><input id="global-search" class="global-search" autocomplete="off" placeholder="Search employee, training, certification, action..."/><div id="global-search-results" class="global-search-results hidden"></div></div><div class="top-actions"><div class="auth-user"><div><strong id="auth-user-name">—</strong><span id="auth-user-role">—</span></div><button class="mini-btn" id="change-password-btn">Password</button><button class="mini-btn" id="logout-btn">Logout</button></div><button class="notification-button" id="notification-button" title="Notifications">🔔 <span id="notification-badge">0</span></button><span class="status-pill"><span class="dot"></span>API Connected</span><span class="status-pill build-pill">Build v22.10.5</span><span class="status-pill">Authenticated LAN</span></div></header>
+<div id="notification-panel" class="notification-panel hidden"><div class="notification-head"><div><strong>Notifications</strong><span>Reminder & operational attention</span></div><button class="detail-close" id="notification-close">×</button></div><div class="notification-actions"><button class="chip" id="notification-refresh">Refresh Reminder</button></div><div id="notification-list" class="notification-list"></div></div>
+<section id="dashboard" class="page active">
+  <div class="hero hero-v9 hero-v227"><div class="hero-copy"><div class="eyebrow hero-eyebrow">PT Black Bear Resources Indonesia</div><h2>Training & Competency Action Dashboard</h2><p>Mulai dari kondisi data, assessment, sampai tindak lanjut. Fokus utama: apa yang perlu ditangani sekarang.</p><div class="hero-tags"><span>Database</span><span>Decision Engine v2</span><span>Action Workflow</span><span>AI Assistant</span></div><div class="hero-actions"><button class="primary" onclick="goTo('ai')">Ask AI Assistant</button><button class="chip light-chip" onclick="goTo('actions')">Open Action Center</button><button class="chip light-chip" onclick="goTo('analytics')">Management Analytics</button></div></div><div class="hero-photo"><img src="/app/static/assets/plant-facility.jpg" alt="Operational facility"/><div class="hero-photo-overlay"></div><div class="photo-caption"><span>Operational Decision Support</span><strong>TCD · HRD · Authenticated LAN</strong></div><div class="art-metrics-v9"><div class="art-card-v9"><strong id="hero-employees">—</strong><span>Employees</span></div><div class="art-card-v9"><strong id="hero-certs">—</strong><span>Certifications</span></div><div class="art-card-v9 alert"><strong id="hero-attention">—</strong><span>Open Actions</span></div></div></div></div>
+  <div class="dashboard-section-head"><div><div class="section-kicker">CURRENT STATE</div><h3>Operational Overview</h3></div><span id="dashboard-updated" class="helper">Live from database</span></div>
+  <div class="kpi-grid kpi-grid-v227" id="kpis"></div>
+  <div class="quick-action-bar"><strong>Quick Actions</strong><button onclick="openEmployeeCreate()">+ Employee</button><button onclick="openHistoryCreate()">+ Training Record</button><button onclick="openCertificationCreate()">+ Certification</button><button onclick="goTo('assessment')">Assessment Queue</button><button onclick="goTo('data')">Import Excel</button></div>
+  <div class="grid-dashboard-main">
+    <div class="card attention-card"><div class="card-head"><div><h3>Needs Attention</h3><p class="helper">Klik item untuk langsung membuka workflow terkait.</p></div></div><div id="needs-attention" class="attention-list"></div></div>
+    <div class="card"><div class="card-head"><div><h3>Action Progress</h3><p class="helper">Status tindak lanjut yang sudah dibuat TCD.</p></div><button class="mini-btn" onclick="goTo('actions')">View All</button></div><div id="action-progress" class="progress-list"></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><div><h3>Requirement Coverage</h3><p class="helper">Status assessment berdasarkan available evidence.</p></div></div><div id="status-pie" class="chart-wrap"></div></div>
+    <div class="card"><div class="card-head"><div><h3>Priority Distribution</h3><p class="helper">Prioritas analytical engine.</p></div></div><div id="priority-pie" class="chart-wrap"></div></div>
+  </div>
+  <div class="grid-dashboard-main">
+    <div class="card"><div class="card-head"><div><h3>Upcoming Certification</h3><p class="helper">Sertifikasi yang berakhir dalam 180 hari.</p></div><button class="mini-btn" onclick="goTo('certification')">Monitoring</button></div><div class="table-wrap compact"><table><thead><tr><th>Employee</th><th>Certification</th><th>Expiry</th><th>Days</th><th>Renewal</th></tr></thead><tbody id="upcoming-cert-body"></tbody></table></div></div>
+    <div class="card"><div class="card-head"><div><h3>Recent Activity</h3><p class="helper">Perubahan terakhir pada database.</p></div></div><div id="recent-activity" class="activity-list"></div></div>
+  </div>
+  <div class="card definitions"><div class="card-head"><div><h3>Indicator Definition</h3><p class="helper">Potential Gap tidak sama dengan final competency gap.</p></div></div><div id="dashboard-definitions" class="definition-grid"></div></div>
+</section>
+<section id="employee" class="page">
+  <div class="page-head"><div><h2>Employee Management</h2><p>Kelola data karyawan secara manual. Gunakan <strong>Deactivate</strong> untuk employee perusahaan dan <strong>Delete Test Data</strong> hanya untuk Employee ID UAT-/TEST-/DUMMY-.</p></div><div class="page-actions"><input id="employee-search" class="search" placeholder="Cari ID, nama, posisi, atau departemen..."/><button class="chip" onclick="downloadExport('employees',true)">Export Filtered</button><button class="chip" onclick="downloadExport('employees',false)">Export All</button><button class="primary" id="employee-add-btn">+ Add Employee</button></div></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th>Employee ID</th><th>Employee</th><th>Position</th><th>Department</th><th>Assessment</th><th>Attention</th><th>Actions</th></tr></thead><tbody id="employee-body"></tbody></table></div></div>
+</section>
+<section id="training" class="page">
+  <div class="page-head"><div><h2>Training Explorer</h2><p>Kebutuhan training berdasarkan karyawan, jabatan, departemen, dan requirement. Gunakan filter untuk menelusuri training yang relevan.</p></div><div class="page-actions"><button class="chip" onclick="downloadExport('training_requirements',true)">Export Filtered</button><button class="chip" onclick="downloadExport('training_requirements',false)">Export All</button><button class="chip" id="training-catalog-add-btn">+ Training Catalog</button><button class="primary" id="requirement-add-btn">+ Training Requirement</button></div></div>
+  <div class="decor-strip training-visual"><div class="decor-icon">✓</div><div><strong>Training Intelligence</strong><span>Hubungkan karyawan dengan training requirement yang relevan.</span></div></div>
+  <div class="filter-panel"><input id="training-search" class="search" placeholder="Cari nama, jabatan, departemen, atau training..."/><select id="training-employee-filter" class="search"><option value="">Semua Karyawan</option></select><select id="training-position-filter" class="search"><option value="">Semua Jabatan</option></select><select id="training-department-filter" class="search"><option value="">Semua Departemen</option></select><select id="training-type-filter" class="search"><option value="">Semua Tipe</option><option value="Mandatory">Mandatory</option><option value="Additional">Additional</option></select></div><div class="filter-note">Jika pencarian cocok dengan nama/ID karyawan, tabel otomatis berubah ke konteks karyawan tersebut. Filter karyawan dapat digunakan untuk memilih konteks secara eksplisit; pencarian training/jabatan tetap bekerja pada requirement.</div>
+  <div class="card definitions"><div class="definition-grid" id="training-definitions"></div></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th id="training-employee-header">Employee(s)</th><th>Position</th><th>Department</th><th>Training</th><th>Type</th><th>Delivery</th><th>Regulatory</th><th>Actions</th></tr></thead><tbody id="training-body"></tbody></table></div></div>
+</section>
+<section id="history" class="page">
+  <div class="page-head"><div><h2>Training History</h2><p>Riwayat training aktual yang telah tercatat pada database.</p></div><div class="page-actions"><input id="history-search" class="search" placeholder="Cari nama, posisi, atau training..."/><button class="chip" onclick="downloadExport('training_history',true)">Export Filtered</button><button class="chip" onclick="downloadExport('training_history',false)">Export All</button><button class="primary" id="history-add-btn">+ Add Training Record</button></div></div>
+  <div class="card definitions"><div class="definition-grid" id="history-definitions"></div></div>
+  <div class="empty-state" id="history-empty"><strong>Belum ada Training History</strong><span>Belum tersedia record training aktual pada database saat ini.</span></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Position</th><th>Training</th><th>Completion Date</th><th>Status</th><th>Provider</th><th>Evidence</th><th>Actions</th></tr></thead><tbody id="history-body"></tbody></table></div></div>
+</section>
+<section id="certification" class="page">
+  <div class="page-head"><div><h2>Certification Monitoring</h2><p>Pantau kepemilikan, status, masa berlaku, dan renewal sertifikasi.</p></div><div class="page-actions"><input id="cert-search" class="search" placeholder="Cari karyawan, posisi, atau sertifikasi..."/><button class="chip" onclick="downloadExport('certifications',true)">Export Filtered</button><button class="chip" onclick="downloadExport('certifications',false)">Export All</button><button class="primary" id="cert-add-btn">+ Add Certification</button></div></div>
+  <div class="card definitions"><div class="definition-grid" id="cert-definitions"></div></div>
+  <div class="filter-row"><button class="chip active" data-cert="">All</button><button class="chip" data-cert="Expired">Expired</button><button class="chip" data-cert="Near Expiry">Near Expiry ≤90d</button><button class="chip" data-cert="Active">Active</button><button class="chip" data-cert="In Process">In Process</button></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Position</th><th>Certification</th><th>Status</th><th>Expiry Date</th><th>Renewal</th><th>Actions</th></tr></thead><tbody id="cert-body"></tbody></table></div></div>
+</section>
+<section id="competency" class="page">
+  <div class="page-head"><div><h2>Competency Explorer</h2><p>Coverage, assessment, priority, evidence confidence, dan tindak lanjut. <strong>Decision Engine v2</strong> membedakan hasil System, Validated, Override, dan Legacy.</p></div><div class="page-actions"><input id="comp-search" class="search" placeholder="Cari nama, posisi, atau training..."/><button class="chip" onclick="downloadExport('competency',true)">Export Filtered</button><button class="chip" onclick="downloadExport('competency',false)">Export All</button><select id="competency-filter" class="search"><option value="">All Status</option><option>Potential Gap</option><option>Validation Required</option><option>Not Assessed</option><option>Covered</option></select></div></div>
+  <div class="card definitions"><div class="definition-grid" id="comp-definitions"></div></div>
+  <div class="decor-strip"><div class="decor-icon">V2</div><div><strong>Decision Engine v2</strong><span>Training History + Certification + Mapping + Validity + Human Validation. Potential Gap tetap bukan competency gap final.</span></div></div><div class="card"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Position</th><th>Training / Requirement</th><th>Status</th><th>Priority</th><th>Source</th><th>Evidence Confidence</th><th>Action</th></tr></thead><tbody id="competency-body"></tbody></table></div></div>
+</section>
+<section id="assessment" class="page">
+  <div class="page-head"><div><h2>Assessment Queue</h2><p id="assessment-role-copy">Kelola lifecycle assessment: <strong>Pending Initial Assessment → Assessment Ready → Assessed</strong>, serta <strong>Pending Reassessment → Assessed</strong> ketika evidence atau kebutuhan berubah.</p></div></div>
+  <div id="assessment-state-cards" class="kpi-grid lifecycle-grid"></div>
+  <div class="card definitions"><div class="definition-grid" id="assessment-definitions"></div></div>
+  <div class="filter-panel"><input id="assessment-search" class="search" placeholder="Cari employee atau position..."/><select id="assessment-state-filter" class="search"><option value="">All Assessment State</option><option>Pending Initial Assessment</option><option>Assessment Ready</option><option>Pending Reassessment</option></select></div>
+  <div class="card"><div class="card-head"><div><h3>Employees Requiring Assessment Action</h3><p class="helper">Training/Certification count hanya menunjukkan evidence yang tersedia. Ketiadaan evidence tidak membuat gap sebelum Initial Assessment dijalankan.</p></div></div><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Position</th><th>Assessment State</th><th>Requirements</th><th>Training History</th><th>Certification</th><th>Last Assessment</th><th>Action</th></tr></thead><tbody id="assessment-body"></tbody></table></div></div>
+</section>
+<section id="validation" class="page">
+  <div class="page-head"><div><h2>Validation Queue</h2><p id="validation-role-copy">Human validation untuk mapping/evidence yang belum cukup pasti. User memberikan keputusan dan evidence; Decision Engine tetap menghitung ulang status.</p></div></div>
+  <div class="card definitions"><div class="definition-grid"><div class="definition"><span>Confirm Equivalent</span><p>Mapping dinyatakan ekuivalen berdasarkan verifikasi TCD.</p></div><div class="definition"><span>Not Equivalent</span><p>Evidence tidak boleh digunakan sebagai pemenuhan requirement tersebut.</p></div><div class="definition"><span>Need More Evidence</span><p>Hubungan belum dapat diputuskan sampai evidence tambahan tersedia.</p></div></div></div>
+  <div class="filter-panel"><input id="validation-search" class="search" placeholder="Cari employee, position, atau requirement..."/><select id="validation-mapping-filter" class="search"><option value="">All Mapping</option></select><select id="validation-priority-filter" class="search"><option value="">All Priority</option></select></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Position</th><th>Training / Requirement</th><th>Mapping</th><th>Certification Candidate</th><th>Priority</th><th>Action</th></tr></thead><tbody id="validation-body"></tbody></table></div></div>
+</section>
+<section id="actions" class="page">
+  <div class="page-head"><div><h2>Action Center</h2><p>Tindak lanjut assessment dan certification: siapa PIC-nya, kapan due date-nya, statusnya, serta evidence penyelesaiannya.</p></div><div class="page-actions"><button class="chip" onclick="downloadExport('actions',true)">Export Filtered</button><button class="chip" onclick="downloadExport('actions',false)">Export All</button><button class="primary" id="action-add-btn">+ Create Action</button></div></div>
+  <div id="action-summary" class="kpi-grid action-summary"></div>
+  <div class="filter-panel"><select id="action-status-filter" class="search"><option value="">All Status</option></select><select id="action-priority-filter" class="search"><option value="">All Priority</option></select><select id="action-pic-filter" class="search"><option value="">All PIC</option></select><select id="action-deleted-filter" class="search"><option value="active">Active Actions</option><option value="deleted">Deleted / Archived</option><option value="all">All Actions</option></select><button class="chip" id="action-refresh-btn">Refresh</button></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th>Employee</th><th>Requirement / Action</th><th>Type</th><th>Priority</th><th>PIC</th><th>Due</th><th>Status</th><th>Evidence</th><th>Actions</th></tr></thead><tbody id="action-body"></tbody></table></div></div>
+</section>
+<section id="ai" class="page">
+  <div class="page-head"><div><h2>AI Assistant</h2><p>Tanyakan Training Requirement, Training History, fulfillment, sertifikasi, kompetensi, atau Action Center dengan bahasa alami.</p></div><div class="page-actions"><button class="chip" id="ai-reset-context">Percakapan Baru</button></div></div>
+  <div class="card definitions"><div class="definition-grid" id="ai-definitions"></div></div>
+  <div class="quick-row"><button class="quick" data-q="Siapa yang punya potential gap?">Potential Gap</button><button class="quick" data-q="Siapa yang sertifikasinya akan expired dalam 90 hari?">Near Expiry</button><button class="quick" data-q="Siapa yang sertifikasinya sudah expired?">Expired</button><button class="quick" data-q="Siapa yang belum assessed?">Not Assessed</button><button class="quick" data-q="Apakah Sandi sudah ikut training?">Training Fulfillment</button><button class="quick" data-q="Ringkas kondisi management bulan ini">Management Summary</button></div>
+  <div class="chat card"><div id="chat-log" class="chat-log"><div class="msg assistant"><strong>Halo!</strong><div>Saya siap mencari data sistem dan memahami pertanyaan lanjutan dalam percakapan ini.</div></div></div><div class="chat-input"><input id="ai-input" placeholder="Contoh: Tampilkan Training History Sandi"/><button class="primary" id="ai-send">Kirim</button></div></div>
+</section>
+
+<section id="analytics" class="page">
+  <div class="page-head"><div><h2>Reports & Management Analytics</h2><p>Ringkasan management, trend, renewal plan, requirement coverage, action performance, dan upcoming 90 days. Rate yang belum didukung data aktual ditampilkan sebagai <strong>Not Available</strong>, bukan dipaksakan menjadi 0%.</p></div><div class="page-actions"><button class="chip" id="analytics-snapshot-btn">Refresh Monthly Snapshot</button><button class="primary" id="analytics-export-btn">Export Management Report</button></div></div>
+  <div class="analytics-toolbar"><label>Department <select id="analytics-department" class="search"><option value="">All Departments</option></select></label><button class="chip" id="analytics-refresh-btn">Apply Filter</button><span id="analytics-generated" class="helper">—</span></div>
+  <div id="analytics-readiness" class="readiness-grid"></div>
+  <div id="analytics-kpis" class="kpi-grid analytics-kpi-grid"></div>
+  <div class="grid-dashboard-main">
+    <div class="card"><div class="card-head"><div><h3>Requirement Coverage</h3><p class="helper">Current employee–requirement assessment records; bukan direct competency score.</p></div></div><div id="analytics-coverage-bars" class="analytics-bars"></div></div>
+    <div class="card"><div class="card-head"><div><h3>12-Month Certification Renewal Plan</h3><p class="helper">Distribusi expiry sertifikasi berdasarkan bulan.</p></div></div><div id="analytics-cert-bars" class="analytics-bars"></div></div>
+  </div>
+  <div class="grid-dashboard-main">
+    <div class="card"><div class="card-head"><div><h3>Monthly Trend</h3><p class="helper">Trend aktif setelah minimal dua monthly snapshot tersedia.</p></div></div><div id="analytics-trend" class="trend-panel"></div></div>
+    <div class="card"><div class="card-head"><div><h3>Action Performance</h3><p class="helper">Workflow progress; bukan employee performance score.</p></div></div><div id="analytics-action-bars" class="analytics-bars"></div></div>
+  </div>
+  <div class="grid-dashboard-main">
+    <div class="card"><div class="card-head"><div><h3>Top Potential Gap Requirements</h3><p class="helper">Repeated requirement issues dapat membantu planning training batch atau evidence validation.</p></div></div><div class="table-wrap compact"><table><thead><tr><th>Requirement</th><th>Employees</th><th>Priority</th></tr></thead><tbody id="analytics-gap-body"></tbody></table></div></div>
+    <div class="card"><div class="card-head"><div><h3>Upcoming 90 Days</h3><p class="helper">Certification expiry, action due, dan scheduled training.</p></div></div><div id="analytics-upcoming-summary" class="analytics-upcoming"></div><div class="table-wrap compact"><table><thead><tr><th>Employee</th><th>Certification</th><th>Expiry</th><th>Days</th></tr></thead><tbody id="analytics-upcoming-body"></tbody></table></div></div>
+  </div>
+  <div class="card"><div class="card-head"><div><h3>Department Comparison</h3><p class="helper">Bandingkan bersama volume requirement dan data completeness; jangan dibaca sebagai ranking performa departemen.</p></div></div><div class="table-wrap"><table><thead><tr><th>Department</th><th>Employees</th><th>Assessment Records</th><th>Coverage Rate</th><th>Potential Gap</th><th>Validation</th><th>Not Assessed</th><th>Expired Cert.</th><th>Open Action</th><th>Overdue</th></tr></thead><tbody id="analytics-department-body"></tbody></table></div></div>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><div><h3>Data Quality</h3><p class="helper">Masalah data yang memengaruhi interpretasi hasil.</p></div></div><div id="analytics-quality-bars" class="analytics-bars"></div></div>
+    <div class="card"><div class="card-head"><div><h3>Metric Definitions</h3><p class="helper">Definisi dipertahankan agar management tidak membaca Requirement Coverage sebagai competency score.</p></div></div><div id="analytics-definitions" class="definition-grid"></div></div>
+  </div>
+</section>
+<section id="data" class="page">
+  <div class="page-head"><div><h2>Data Management</h2><p>Kelola Employee Master, TNA/Training Requirement, Training History, dan Certification. Data yang berhasil diimpor menjadi evidence terbaru untuk Decision Engine dan AI Assistant.</p></div></div>
+  <div class="card definitions"><div class="definition-grid" id="data-definitions"></div></div>
+  <div class="card quick-entry-card"><div class="card-head"><div><h3>Quick Manual Entry</h3><p class="helper">Untuk update sedikit, masukkan data langsung tanpa membuat file Excel.</p></div></div><div class="quick-entry-grid"><button class="quick-entry" data-crud="employee">+ Employee</button><button class="quick-entry" data-crud="history">+ Training History</button><button class="quick-entry" data-crud="certification">+ Certification</button><button class="quick-entry" data-crud="requirement">+ Training Requirement</button></div></div>
+  <div class="grid-2">
+    <div class="card template-card"><div class="card-head"><div><h3>Official Excel Templates</h3><p class="helper">Untuk data banyak, gunakan template resmi agar header dan format dapat divalidasi secara konsisten.</p></div></div><div class="template-grid"><button class="template-btn" data-template="Employee Master"><strong>Employee</strong><span>Employee Master Template</span></button><button class="template-btn" data-template="Training History"><strong>Training History</strong><span>Actual training records</span></button><button class="template-btn" data-template="Certification"><strong>Certification</strong><span>Certificate & expiry records</span></button><button class="template-btn" data-template="Training Requirement"><strong>Training Requirement</strong><span>Position-based requirements</span></button></div></div>
+    <div class="card"><div class="card-head"><div><h3>Safe Bulk Import</h3><p class="helper">Upload tidak langsung mengubah database. Sistem melakukan validation → preview → confirm.</p></div></div><label class="field-label">Jenis data</label><select id="dataset-type" class="search full"><option>Employee Master</option><option>Certification</option><option>Training Requirement</option><option>Training History</option></select><label class="field-label">File Excel</label><input id="data-file" type="file" accept=".xlsx"/><button class="primary full-btn" id="validate-import-btn">Validate File</button><div id="import-result" class="notice hidden"></div><div id="confirm-import-panel" class="safe-confirm hidden"><label><input id="accept-warnings" type="checkbox" checked/> Import baris Warning</label><label>Duplicate <select id="duplicate-action"><option value="skip">Skip (Recommended)</option><option value="update">Update Existing</option></select></label><div class="safe-confirm-actions"><button class="chip" id="download-import-report">Download Validation Report</button><button class="primary" id="confirm-import-btn">Confirm Import</button></div></div></div>
+  </div>
+  <div id="import-preview-card" class="card hidden"><div class="card-head"><div><h3>Import Validation Preview</h3><p class="helper" id="import-batch-label">Database belum berubah.</p></div><div id="import-summary" class="preview-summary"></div></div><div class="table-wrap"><table><thead><tr><th>Row</th><th>Status</th><th>Action</th><th>Record</th><th>Validation Message</th></tr></thead><tbody id="safe-preview-body"></tbody></table></div></div>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><h3>Data & Architecture</h3><p class="helper">Data yang sudah dikonfirmasi disimpan pada database utama dan menandai employee terkait untuk reassessment.</p></div><div class="system-check"><div><span>Database</span><strong>SQLite (Development)</strong></div><div><span>Import</span><strong>Validate → Preview → Confirm</strong></div><div><span>Decision</span><strong>Decision Engine v2</strong></div><div><span>Backend</span><strong>FastAPI</strong></div></div><div class="migration-note"><strong>Source of truth:</strong> database. Excel hanya menjadi media bulk input/output, bukan database operasional.</div></div>
+    <div class="card"><div class="card-head"><div><h3>Recent Import Batches</h3><p class="helper">Setiap validasi memiliki Batch ID untuk traceability.</p></div></div><div class="table-wrap compact"><table><thead><tr><th>Batch</th><th>Dataset</th><th>Status</th><th>Read</th><th>Imported</th><th>Created</th></tr></thead><tbody id="batch-body"></tbody></table></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><div><h3>Multi-user LAN</h3><p class="helper">Beberapa pengguna HRD/TCD dapat mengakses aplikasi yang sama melalui jaringan lokal. Semua pengguna membaca database terpusat yang sama dan melakukan pembaruan sesuai kewenangan masing-masing.</p></div></div><div class="role-actions"><button class="primary" id="refresh-btn">Refresh Data</button><button class="chip" id="audit-btn">Lihat Audit Trail</button></div></div>
+    <div class="card"><div class="card-head"><div><h3>Audit Trail</h3><p class="helper">Aktivitas import, refresh, dan AI query yang tercatat.</p></div></div><div class="table-wrap compact"><table><thead><tr><th>Waktu</th><th>User</th><th>Action</th><th>Dataset</th><th>Detail</th></tr></thead><tbody id="audit-body"><tr><td colspan="5">Tekan “Lihat Audit Trail”.</td></tr></tbody></table></div></div>
+  </div>
+  <div class="card"><div class="card-head"><div><h3>Import Log</h3><p class="helper">Catatan proses import yang sudah dilakukan.</p></div></div><div class="table-wrap"><table><thead><tr><th>File</th><th>Dataset</th><th>Read</th><th>Imported</th><th>Rejected</th><th>Status</th><th>Imported At</th></tr></thead><tbody id="log-body"></tbody></table></div></div>
+</section>
+
+<section id="system" class="page">
+  <div class="page-head"><div><h2>System & Backup</h2><p>Kontrol akses internal, backup database + evidence, serta fondasi deployment untuk penggunaan HRD dan Supervisor TCD.</p></div><div class="page-actions"><button class="primary" id="backup-now-btn">Backup Now</button></div></div>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><div><h3>User Access</h3><p class="helper">Hanya Supervisor TCD dan HRD yang aktif pada deployment ini.</p></div><button class="chip" id="user-add-btn">+ User</button></div><div class="table-wrap compact"><table><thead><tr><th>User</th><th>Role</th><th>Status</th><th>Last Login</th><th>Security</th><th>Action</th></tr></thead><tbody id="system-user-body"></tbody></table></div></div>
+    <div class="card"><div class="card-head"><div><h3>Security Status</h3><p class="helper">Backend authorization tetap berlaku walaupun tombol UI disembunyikan.</p></div></div><div class="system-check"><div><span>Authentication</span><strong>Required</strong></div><div><span>Session</span><strong>60 min idle</strong></div><div><span>Password</span><strong>PBKDF2-SHA256</strong></div><div><span>Evidence Access</span><strong>Protected API</strong></div><div><span>Roles</span><strong>Supervisor TCD / HRD</strong></div><div><span>Network</span><strong>Internal LAN</strong></div></div></div>
+  </div>
+  <div class="card"><div class="card-head"><div><h3>Backup & Restore</h3><p class="helper">Backup mencakup SQLite database dan Evidence Storage. Restore membuat safety backup terlebih dahulu dan mengakhiri semua session.</p></div><button class="chip" id="backup-refresh-btn">Refresh</button></div><div class="table-wrap"><table><thead><tr><th>Backup</th><th>Type</th><th>Created</th><th>By</th><th>Evidence</th><th>Size</th><th>Action</th></tr></thead><tbody id="backup-body"></tbody></table></div></div>
+  <div class="card"><div class="card-head"><div><h3>Deployment Foundation</h3><p class="helper">Pilot tetap dapat memakai laptop Supervisor sebagai server. Untuk penggunaan rutin, pindahkan folder aplikasi ke internal company server.</p></div></div><div class="deployment-flow"><div><strong>Supervisor TCD</strong><span>Browser</span></div><b>↘</b><div class="server-node"><strong>DSS Server</strong><span>FastAPI · SQLite · Evidence · Backup</span></div><b>↙</b><div><strong>HRD</strong><span>Browser</span></div></div><div class="migration-note"><strong>Production path:</strong> internal server + PostgreSQL + HTTPS mengikuti kebijakan IT perusahaan. Build v22.10.5 tetap menggunakan SQLite untuk pilot agar handover sederhana.</div></div>
+</section>
+</main>
+<div id="employee-profile" class="profile-backdrop" aria-hidden="true">
+  <div class="profile-drawer">
+    <div class="profile-head"><div><div class="detail-kicker">Employee 360°</div><h2 id="profile-name">Employee</h2><div id="profile-meta" class="profile-meta"></div></div><div class="profile-head-actions"><button class="chip" id="profile-export">Export Employee</button><button class="detail-close" id="profile-close">×</button></div></div>
+    <div id="profile-summary" class="profile-summary-grid"></div>
+    <div class="profile-tabs"><button class="active" data-profile-tab="overview">Overview</button><button data-profile-tab="training">Training</button><button data-profile-tab="certification">Certification</button><button data-profile-tab="competency">Competency</button><button data-profile-tab="actions">Actions</button><button data-profile-tab="documents">Documents</button><button data-profile-tab="history">History</button></div>
+    <div id="profile-content" class="profile-content"></div>
+  </div>
+</div>
+<div id="crud-modal" class="crud-backdrop" aria-hidden="true">
+  <div class="crud-modal">
+    <div class="crud-modal-head"><div><div class="detail-kicker">Manual Data Management</div><h3 id="crud-title">Add Record</h3></div><button type="button" class="detail-close" id="crud-close">×</button></div>
+    <form id="crud-form"><div id="crud-note" class="crud-note hidden"></div><div id="crud-fields" class="crud-fields"></div><div class="crud-actions"><button type="button" class="chip" id="crud-cancel">Cancel</button><button type="submit" class="primary" id="crud-submit">Save</button></div></form>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<script src="/app/static/app.js?v=v22.10.5"></script>
+</body></html>
